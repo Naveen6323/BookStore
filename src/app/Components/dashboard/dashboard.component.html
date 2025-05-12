@@ -1,0 +1,37 @@
+<!-- Header -->
+
+   <header class="navbar">
+       <div class="logo" (click)="toDashBoard('books')">📖 Bookstore</div>
+       <input type="text" placeholder="Search ..." class="search-bar" [(ngModel)]="searchValue"/>
+       <div class="nav-icons">
+         <div class="nav-item">
+          <button><span class="material-symbols-outlined pointer">
+            person
+            </span></button>
+          <span class="profile">Profile</span> 
+        </div>
+         <div class="nav-item">
+          <button (click)="onCartClick('cart')">
+            <span matBadge={{cartCount}} class="material-symbols-outlined cart pointer">shopping_cart
+
+            </span>
+          </button >
+        <span>Cart</span></div>
+         <div class="nav-item">
+          <button (click)="onWishClick('wish')">
+            <span class="material-symbols-outlined pointer">favorite</span>
+          </button >
+        <span>Fav</span></div>
+       </div>
+     </header>
+      <main class="container">
+          <app-books class="books" *ngIf="activeComponent==='books'" (bookDetailChange)="onBookDetailReceive($event)" [search]="searchValue"></app-books>
+          <app-bookdetail class="bookdetail"  *ngIf="activeComponent==='bookDetail' && bookDetailData" [bookDetail]="bookDetailData" (cartClick)="onCartClick($event)" (addCartEvent)="cartCountRefresh($event)"></app-bookdetail>
+          <app-cart class="cart" *ngIf="activeComponent==='cart'" (homeClick)="toDashBoard($event)" (cartCount)="receiveCartCount($event)"></app-cart>
+          <app-whish-list class="whish-list" *ngIf="activeComponent==='wish'" ></app-whish-list>
+      </main>
+     <!-- Main Content -->
+     <footer class="page-footer">
+       <p>Copyright © 2020, Bookstore Private Limited. All Rights Reserved</p>
+     </footer>
+  

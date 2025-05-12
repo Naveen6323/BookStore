@@ -1,0 +1,55 @@
+
+  <div class="container">
+    <div class="book-section">
+      <img src={{bookDetail.bookImage}} alt="Don't Make Me Think" class="book-cover">
+      <div class="actions">
+        <button class="btn add-to-bag" (click)="addCart(bookDetail.id)">ADD TO BAG</button>
+        <button class="btn wishlist" (click)="addTowhish(bookDetail.id)">❤ WISHLIST</button>
+      </div>
+    </div>
+
+    <div class="details-section">
+      <h2>{{bookDetail.bookName}}</h2>
+      <p class="author">by <strong>{{bookDetail.author}}</strong></p>
+      <div class="rating-price">
+        <span class="rating">4.5 ★ (20)</span>
+        <div class="price">
+          <span class="current-price">Rs. {{bookDetail.discountPrice}}</span>
+          <span class="old-price">{{bookDetail.price}}</span>
+        </div>
+      </div>
+
+      <div class="book-detail">
+        <h4>Book Detail</h4>
+        <p>{{bookDetail.description}}</p>
+      </div>
+
+      <div class="feedback-section">
+        <h4>Customer Feedback</h4>
+        <div class="review-form">
+          <label>Overall rating</label>
+          <div class="stars">☆ ☆ ☆ ☆ ☆</div>
+          <textarea placeholder="Write your review"></textarea>
+          <button class="btn submit">Submit</button>
+        </div>
+
+        <div class="reviews">
+          <div class="review">
+            <div class="user-initial">AC</div>
+            <div>
+              <div class="review-header"><strong>Aniket Chile</strong> ★★★★☆</div>
+              <p>Good product. Even though the translation could have been better..</p>
+            </div>
+          </div>
+          <div class="review">
+            <div class="user-initial">SB</div>
+            <div>
+              <div class="review-header"><strong>Shweta Bodkar</strong> ★★★★☆</div>
+              <p>Good product. Even though the translation could have been better...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

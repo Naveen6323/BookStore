@@ -1,0 +1,97 @@
+<div class="cart-container">
+    <div class="breadcrumb" (click)="onHome()">Home / <span><strong style="color: black;">My cart</strong></span></div>
+  
+    <div class="cart-section" >
+      <h2>My cart </h2>
+      <button class="location-btn">📍 Use current location</button>
+  
+      <div class="cart-item" *ngFor="let item of cartDetail.cartItems">
+        <img src={{item.bookImage}} alt="Don't Make Me Think" />
+        <div class="item-details">
+          <h3>{{item.bookName}}</h3>
+          <p>by {{item.author}}</p>
+          <p class="price">Rs. {{item.totalPrice}} <span class="strike">Rs.2000</span></p>
+          <div class="quantity">
+            <button (click)="decreaseQuantity(item.bookId)">-</button>
+            <span>{{item.quantity}}</span>
+            <button (click)="increaseQuantity(item.bookId)">+</button>
+            <a href="#" class="remove">Remove</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="customer-details">
+      <h3>Customer Details</h3>
+      <form [formGroup]="checkoutForm">
+        <div class="form-row">
+            <div>
+
+                    <label >Full Name</label>
+              <input type="text" placeholder="Full Name" formControlName="customerFullName" />
+              <div *ngIf="checkoutForm.get('customerFullName')?.invalid && checkoutForm.get('customerFullName')?.touched">
+                <small *ngIf="checkoutForm.get('customerFullName')?.hasError('required')" style="color:red;padding-left: 5px;">Name is required for Checkout.</small>
+              </div>
+            </div>
+            <div>
+
+                <label>Mobile Number</label>
+                <input type="text" placeholder="Mobile Number" formControlName="customerPhone" />
+                <div *ngIf="checkoutForm.get('customerPhone')?.invalid && checkoutForm.get('customerPhone')?.touched">
+                 <small *ngIf="checkoutForm.get('customerPhone')?.hasError('required')" style="color:red;padding-left: 5px;">phone number is required for Checkout.</small>
+                 <small *ngIf="checkoutForm.get('customerPhone')?.hasError('pattern')" style="color:red;padding-left: 5px;">enter valid phone nummber</small>
+              </div>
+            </div>
+        </div>
+        <div class="address">
+            <label>Address</label>
+            <textarea placeholder="Address" formControlName="customerAddress"></textarea>
+            <div *ngIf="checkoutForm.get('customerAddress')?.invalid && checkoutForm.get('customerAddress')?.touched">
+                 <small *ngIf="checkoutForm.get('customerAddress')?.hasError('required')" style="color:red;padding-left: 5px;">address is required for Checkout.</small>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="city">
+                <label >city/town</label>
+            <input type="text" placeholder="City/Town" formControlName="customerCity" />
+            <div *ngIf="checkoutForm.get('customerCity')?.invalid && checkoutForm.get('customerCity')?.touched">
+                 <small *ngIf="checkoutForm.get('customerCity')?.hasError('required')" style="color:red;padding-left: 5px;">field is required for Checkout.</small>
+            </div>
+            </div>
+            <div class="state">
+                <label >state</label>
+                <input type="text" placeholder="State"  formControlName="customerState"/>
+                <div *ngIf="checkoutForm.get('customerState')?.invalid && checkoutForm.get('customerState')?.touched">
+                 <small *ngIf="checkoutForm.get('customerState')?.hasError('required')" style="color:red;padding-left: 5px;">field is required for Checkout.</small>
+                </div>
+            </div>
+        </div>
+        <div class="type-select" >
+          <label><input type="radio" name="addressType" formControlName="addressType" value="home"/> Home</label>
+          <label><input type="radio" name="addressType" formControlName="addressType" value="work"/> Work</label>
+          <div *ngIf="checkoutForm.get('addressType')?.invalid && checkoutForm.get('addressType')?.touched">
+                 <small *ngIf="checkoutForm.get('addressType')?.hasError('required')" style="color:red;padding-left: 5px;">field is required for Checkout.</small>
+                </div>
+        </div>
+      </form>
+    </div>
+  
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <div class="cart-item" *ngFor="let item of cartDetail.cartItems">
+        <img src={{item.bookImage}} alt="Don't Make Me Think" />
+        <div class="item-details">
+          <h3>{{item.bookName}}</h3>
+          <p>by {{item.author}}</p>
+          <p class="price">Rs. {{item.totalPrice}} <span class="strike">Rs.2000</span></p>
+          <div class="quantity">
+            <span> Quantity : {{item.quantity}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="total">
+        <span><h3>Total Amount : Rs.{{cartDetail.grandTotal}}</h3></span>
+        <button class="checkout-btn" type="submit" (click)="onSubmit()">Checkout</button>
+    </div>
+  </div>
+  

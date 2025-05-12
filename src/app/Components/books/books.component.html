@@ -1,0 +1,10 @@
+
+<div class="header-row">
+    <h2>Books <span>({{count}} Items)</span></h2>
+    <select class="sort-select" (change)="onSortChange($event)">
+    <option value="default">Sort by relevance</option>
+    <option value="price">Sort by price</option>
+    </select>
+</div>
+<app-displaybooks (countChange)="onCountChange($event)" (bookDetailChange)="onBookDetailReceived($event)" class="displaybooks" [search]="search"></app-displaybooks>
+  

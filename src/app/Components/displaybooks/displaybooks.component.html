@@ -1,0 +1,30 @@
+<div class="book-grid">
+    <!-- Book Card -->
+    <div class="book-card" *ngFor="let book of filteredBooks" >
+      <img src={{book.bookImage}} alt="Book cover" class="book-image" (click)="onBookClick(book)"/>
+      <div class="book-details" (click)="onBookClick(book)">
+        <h4>{{book.bookName}}</h4>
+        <p>by {{book.author }}</p>
+        <div class="rating">⭐ 4.5 <span>(20)</span></div>
+        <div class="price">
+          <strong>Rs. {{book.discountPrice}}</strong> <span class="original-price">Rs. {{book.price}}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copy above block and modify for other books -->
+
+    <!-- Out of Stock Book Card -->
+    <!-- <div class="book-card out-of-stock">
+      <img src="https://via.placeholder.com/150x200" alt="Book cover" class="book-image" />
+      <div class="out-label">OUT OF STOCK</div>
+      <div class="book-details">
+        <h4>UX For DUMMIES</h4>
+        <p>by Steve Krug</p>
+        <div class="rating">⭐ 4.5 <span>(20)</span></div>
+        <div class="price">
+          <strong>Rs. 1500</strong> <span class="original-price">Rs. 2000</span>
+        </div>
+      </div>
+    </div> -->
+  </div>

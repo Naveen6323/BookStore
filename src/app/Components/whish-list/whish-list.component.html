@@ -1,0 +1,23 @@
+
+  <div class="breadcrumb">
+    Home / <strong>My Wishlist</strong>
+  </div>
+
+  <div class="wishlist-container">
+    <h2>My Wishlist ({{wishCount}})</h2>
+
+    <div class="wishlist-item" *ngFor="let book of wishListDetail">
+      <img src={{book.bookImage}} alt="Don't Make Me Think">
+      <div class="item-details">
+        <h3>{{book.bookName}}</h3>
+        <p class="author">by {{book.author}}</p>
+        <p class="price"><span class="current">Rs. {{book.price}}</span> </p>
+      </div>
+      <div class="delete-icon">
+        <span class="material-symbols-outlined" (click)="removeFromWish(book.bookId)">delete</span>
+      </div>    
+    </div>
+
+    
+  </div>
+

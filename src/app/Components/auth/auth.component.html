@@ -1,0 +1,107 @@
+<div class="body">
+        <div class="container">
+            <div class="left-panel">
+              <img src="assets/images/2766594.png" alt="Online Book Shopping" />
+              <h2>ONLINE BOOK SHOPPING</h2>
+            </div>
+            <div class="right-panel">
+              <div class="form-header">
+                <h2 [ngClass]="isLoginMode ? 'active':'normal'" (click)="toLogin()">LOGIN</h2>
+                <h2  [ngClass]="!isLoginMode ? 'active':'normal'" (click)="toRegister()">SIGNUP</h2>
+              </div>
+            <div *ngIf="isLoginMode; then thenBlock else elseBlock"></div>
+
+            <ng-template #thenBlock>
+                <div class="form">
+
+              <form  [formGroup]="loginForm" class="login-form"  >
+                <label>Email Id</label>
+                <input type="email" placeholder="Email"  required  formControlName="email"/>
+                <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="error-message">
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('required')" style="color: red; font-size: smaller;">
+                        enter ur email
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('email')?.hasError('email')" style="color: red; font-size: smaller;">
+                        enter valid email
+                    </mat-error>
+                </div>
+                <label>Password</label>
+                <div class="password-field">
+                  <input type="password" placeholder="Password" required formControlName="password"/>
+                  <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="error-message">
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('required')" style="color: red; font-size: smaller;">
+                        enter ur password
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')" style="color: red; font-size: smaller;">
+                        password should be at least 8 characters long
+                    </mat-error>
+                </div>
+                </div>
+        
+                <a href="#" class="forgot-password">Forgot Password?</a>
+                <button type="submit" class="login-btn" (click)="login()">Login</button>
+        
+                <div class="divider">
+                  <span></span> OR <span></span>
+                </div>
+        
+                <div class="social-login">
+                  <button class="facebook">Facebook</button>
+                  <button class="google">Google</button>
+                </div>
+              </form>
+            </div>
+
+    </ng-template>
+    <ng-template #elseBlock>
+        
+        
+        <form class="signup-form" [formGroup]="registerForm">
+          <label>Full Name</label>
+          <input type="text" placeholder="Full Name" class="error" formControlName="name"/>
+          <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="error-message">
+            <mat-error *ngIf="registerForm.get('name')?.hasError('required')" style="color: red; font-size: smaller;">
+                enter ur name
+            </mat-error>
+        </div>
+          <label>Email Id</label>
+          <input type="email" placeholder="Email" formControlName="email"/>    
+          <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="error-message">
+            <mat-error *ngIf="registerForm.get('email')?.hasError('required')" style="color: red; font-size: smaller;">
+                enter ur email
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('email')?.hasError('email')" style="color: red; font-size: smaller;">
+                enter valid email
+            </mat-error>
+        </div>
+          <label>Password</label>
+          <div class="password-field">
+            <input type="password" placeholder="Password" formControlName="password" />
+            <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="error-message">
+                <mat-error *ngIf="registerForm.get('password')?.hasError('required')" style="color: red; font-size: smaller;">
+                    enter ur password
+                </mat-error>
+                <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')" style="color: red; font-size: smaller;">
+                    password should be at least 8 characters long
+                </mat-error>
+            </div>
+          </div>
+          <label>Mobile Number</label>
+          <input type="tel" placeholder="Mobile Number" formControlName="phone"/>
+          <div *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid" class="error-message">
+            <mat-error *ngIf="registerForm.get('phone')?.hasError('required')" style="color: red; font-size: smaller;">
+                enter ur phone number
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('phone')?.hasError('pattern')" style="color: red; font-size: smaller;">
+                enter valid phone number
+            </mat-error>
+        </div>
+          <button type="submit" class="signup-btn">Signup</button>
+        </form>
+        </ng-template>
+
+        </div>
+    </div>
+    
+    
+</div>
