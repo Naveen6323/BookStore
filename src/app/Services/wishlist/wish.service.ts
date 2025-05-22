@@ -38,4 +38,13 @@ export class WishService {
     }
     return this.http.deleteService(`https://localhost:7016/api/wishList?bookId=${bookId}`,true,header);
   }
+  getWishByBookId(bookId:any){
+    let header = {
+      headers:new HttpHeaders({
+        'Content-Type':'application/json',
+        'Authorization':`Bearer ${this.token}`
+      })
+    } 
+    return this.http.getService(`https://localhost:7016/api/wishList/getByBookId?bookId=${bookId}`,true,header);
+  }
 }

@@ -8,10 +8,13 @@ import { DisplaybooksComponent } from './Components/displaybooks/displaybooks.co
 import { BookdetailComponent } from './Components/bookdetail/bookdetail.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { WhishListComponent } from './Components/whish-list/whish-list.component';
+import { MyOrdersComponent } from './Components/my-orders/my-orders.component';
+import { AnagramComponent } from './Components/anagram/anagram.component';
 
 const routes: Routes = [
-  {path: '', component:AuthComponent},
-  {path:'dash', component:DashboardComponent,
+  {path:'gram',component:AnagramComponent},
+  {path: '', component:AuthComponent,pathMatch:'full'},
+  {path:'dashboard', component:DashboardComponent,canActivate:[authguardGuard],
     children:[
       {path:'books',component:BooksComponent,
         children:[
@@ -19,10 +22,11 @@ const routes: Routes = [
       ]},
     {path:'detail',component:BookdetailComponent},
     {path:'cart',component:CartComponent},
-    {path:'wish',component:WhishListComponent}
+    {path:'wishlist',component:WhishListComponent},
+    {path:'myorders',component:MyOrdersComponent}
 
 
-    ],canActivate:[authguardGuard]}
+    ]}
 ];
 
 @NgModule({

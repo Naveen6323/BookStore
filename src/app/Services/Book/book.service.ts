@@ -11,6 +11,15 @@ export class BookService implements OnInit {
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
+  getAllBooksByPageNumber(val:number) {
+    let header={
+      headers:new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      })
+    }
+    return this.http.getService(`https://localhost:7016/api/book?pageNo=${val}&pageSize=10`,true,header);
+  }
   getAllBooks() {
     let header={
       headers:new HttpHeaders({
@@ -18,6 +27,6 @@ export class BookService implements OnInit {
         'Authorization': 'Bearer ' + this.token
       })
     }
-    return this.http.getService('https://localhost:7016/api/book?pageNo=1&pageSize=10',true,header);
+    return this.http.getService('https://localhost:7016/api/book/allBooks',true,header);
   }
 }

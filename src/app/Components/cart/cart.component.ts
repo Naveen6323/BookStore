@@ -1,4 +1,4 @@
-  import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+  import { Component, DebugElement, EventEmitter, OnInit, Output } from '@angular/core';
   import { Router } from '@angular/router';
   import { CarttService } from '../../Services/Cart/cartt.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,12 +12,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   export class CartComponent implements OnInit{
     cartDetail:any;
     checkoutForm!:FormGroup;
+    showForm = false;
+    emyptyCart = false;
+    showSummary= false;
+    showCheckout= false;
     @Output() homeClick: EventEmitter<any> = new EventEmitter<any>();
     @Output() cartCount: EventEmitter<any> = new EventEmitter<any>();
     constructor(private router:Router,private cart:CarttService,private form :FormBuilder) { }
 
     ngOnInit(): void {
+
       this.getCartDetail();
+      
       this.checkoutForm = this.form.group({
         customerFullName: ['',[Validators.required]],
         customerAddress: ['',[Validators.required,Validators.minLength(10)]],
@@ -26,13 +32,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         customerState: ['',[Validators.required]],
         addressType: ['home',[Validators.required]],
       });
+      this.cart.getCUstomerDetails().subscribe((res:any) => {
+        console.log(res.data);
+        this.checkoutForm.patchValue({
+          customerFullName: res.data.customerFullName,
+          customerAddress: res.data.customerAddress,
+          customerPhone: res.data.customerPhone,
+          customerCity: res.data.customerCity,
+          customerState: res.data.customerState,
+        });
 
+        
+      }, (error) => {
+        // Handle HTTP error
+        if (error.error && error.error.message) {
+          console.error('Error fetching customer details:', error.error.message);
+        }
+      });
     }
-    getCartDetail():any{
+    async getCartDetail():Promise<any> {
       this.cart.getCartDetail().subscribe((res:any) => {
         console.log(res.data);
         this.cartDetail = res.data;
-        this.cartCount.emit(this.cartDetail.cartItems.length);
+        this.cartCount.emit(res.data.cartItems.length);
+        if(this.cartDetail.cartItems.length === 0){
+          this.emyptyCart = true;
+        }
       }, (error) => {
         // Handle HTTP error
         if (error.error && error.error.message) {
@@ -45,9 +70,21 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       this.homeClick.emit('books');
 
     }
+    async checkout(val:string){
+      this.cart.checkout().subscribe(async (res:any) => {
+        await this.getCartDetail();
+        this.homeClick.emit(val);
+
+      }, (error) => {
+        // Handle HTTP error
+        if (error.error && error.error.message) {
+          console.error('Error during checkout:', error.error.message);
+        }
+      });
+    }
+
     decreaseQuantity(id:any){
       this.cart.decreaseQuantity(id).subscribe((res:any) => {
-        console.log(res);
         this.getCartDetail();
       }, (error) => {
         // Handle HTTP error
@@ -58,7 +95,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     }
     increaseQuantity(id:any){
       this.cart.addToCart(id).subscribe((res:any) => {
-        console.log(res);
         this.getCartDetail();
       }, (error) => {
         // Handle HTTP error
@@ -68,11 +104,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       });
     }
     onSubmit(){
-      if(this.checkoutForm.invalid){
-        this.markAllAsTouched(this.checkoutForm);
-        return;
-      }
-      const reqData={
+      
+      if(this.checkoutForm.valid){
+      let reqData={
         customerFullName: this.checkoutForm.value.customerFullName,
         customerAddress: this.checkoutForm.value.customerAddress,
         customerPhone: this.checkoutForm.value.customerPhone,
@@ -80,7 +114,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
         customerState: this.checkoutForm.value.customerState,
         addressType: this.checkoutForm.value.addressType
       }
-      console.log(reqData);
+      this.cart.postCustomerDetails(reqData).subscribe((res:any) => {
+        this.showSummary = true;
+      }, (error) => {
+        // Handle HTTP error
+        if (error.error && error.error.message) {
+          console.error('Error submitting form:', error.error.message);
+        }
+      });
+    }else{
+      this.markAllAsTouched(this.checkoutForm);
+      console.log('Form is invalid');
+    }
       
     }
     private markAllAsTouched(formGroup: FormGroup) {
@@ -91,5 +136,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
       }
     });
   }
-
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
   }

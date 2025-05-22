@@ -1,4 +1,9 @@
 
+  <div *ngIf="wishItems>0; then thenBlock else elseBlock"></div>
+  
+  <ng-template #thenBlock>
+    <div class="container">
+
   <div class="breadcrumb">
     Home / <strong>My Wishlist</strong>
   </div>
@@ -20,4 +25,13 @@
 
     
   </div>
+  </div>
+  </ng-template>
+  <ng-template #elseBlock>
+    <div class="empty-wish">
+      <span class="material-symbols-outlined">favorite</span>
+      <h3>Add items to wishlist</h3>
+    </div>
+  </ng-template>
+  
 

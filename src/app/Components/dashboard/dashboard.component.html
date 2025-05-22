@@ -1,14 +1,20 @@
 <!-- Header -->
 
    <header class="navbar">
-       <div class="logo" (click)="toDashBoard('books')">📖 Bookstore</div>
+       <div class="logo" (click)="toDashBoard('books')">📖 <span>Bookstore</span></div>
        <input type="text" placeholder="Search ..." class="search-bar" [(ngModel)]="searchValue"/>
        <div class="nav-icons">
          <div class="nav-item">
-          <button><span class="material-symbols-outlined pointer">
+          <button mat-button [matMenuTriggerFor]="menu"><span class="material-symbols-outlined pointer">
             person
             </span></button>
           <span class="profile">Profile</span> 
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onWishClick('wish')">Wishlist</button>
+                <button mat-menu-item (click)="onMyOrders('myOrders')">My Orders</button>
+                <button mat-menu-item (click)="logout()">Logout</button>
+              </mat-menu>
+
         </div>
          <div class="nav-item">
           <button (click)="onCartClick('cart')">
@@ -17,11 +23,11 @@
             </span>
           </button >
         <span>Cart</span></div>
-         <div class="nav-item">
+         <!-- <div class="nav-item">
           <button (click)="onWishClick('wish')">
             <span class="material-symbols-outlined pointer">favorite</span>
           </button >
-        <span>Fav</span></div>
+        <span>Fav</span></div> -->
        </div>
      </header>
       <main class="container">
@@ -29,6 +35,8 @@
           <app-bookdetail class="bookdetail"  *ngIf="activeComponent==='bookDetail' && bookDetailData" [bookDetail]="bookDetailData" (cartClick)="onCartClick($event)" (addCartEvent)="cartCountRefresh($event)"></app-bookdetail>
           <app-cart class="cart" *ngIf="activeComponent==='cart'" (homeClick)="toDashBoard($event)" (cartCount)="receiveCartCount($event)"></app-cart>
           <app-whish-list class="whish-list" *ngIf="activeComponent==='wish'" ></app-whish-list>
+          <app-my-orders class="my-orders" *ngIf="activeComponent==='myOrders'"  ></app-my-orders>
+          <app-checkout class="checkout" *ngIf="activeComponent==='checkout'" (homeClick)="toDashBoard($event)" (cartCount)="receiveCartCount($event)" ></app-checkout>
       </main>
      <!-- Main Content -->
      <footer class="page-footer">

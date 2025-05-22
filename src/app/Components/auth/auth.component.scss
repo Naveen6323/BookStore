@@ -46,7 +46,7 @@
   
   .right-panel {
     width: 60%;
-    padding: 40px;
+    padding: 0 0 40px 0;
     box-sizing: border-box;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
     border-radius: 10px;
@@ -73,7 +73,8 @@
     border-bottom: 3px solid red;
   }
   .login-form{
-    width: 100%;
+    width: 90%;
+    margin-left: 22px;
   }
   .login-form label {
     display: block;
@@ -175,7 +176,9 @@
     border-radius: 8px;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
   }
-  
+  .signup-form{
+    margin-left: 20px;
+  }
   
   
   
@@ -190,7 +193,7 @@
   }
   
   .signup-form input {
-    width: 100%;
+    width: 90%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -212,7 +215,7 @@
   }
   
   .signup-btn {
-    width: 100%;
+    width: 95%;
     background-color: #a00000;
     color: white;
     border: none;
@@ -223,4 +226,31 @@
     cursor: pointer;
   }
   
-  
+@media(max-width:412px){
+  .left-panel {
+    display: none;
+  }
+  .container {
+    display: flex;
+    width: 900px;
+    margin: 50px auto;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    justify-content: center;
+  }
+  .form-header {
+    display: flex;
+    margin-bottom: 30px;
+    justify-content: center;
+    gap: 15%;
+  }
+  .right-panel {
+    width: 80%;
+    padding: 40px;
+    box-sizing: border-box;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: white;
+  }
+}

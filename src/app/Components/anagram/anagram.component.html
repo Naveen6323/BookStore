@@ -1,0 +1,12 @@
+<div class="container">
+    <form [formGroup]="anagram" class="form">
+        <input type="text" formControlName="word1" placeholder="Enter first word" />
+        <input type="text" formControlName="word2" placeholder="Enter second word" />
+        <button type="submit" class="submit" (click)="onSubmit()"> check</button>
+    </form>
+    <div  *ngIf="btnCLicked" class="result" class="show">
+    <div *ngIf="isSuccess" class="success">The words are anagrams!</div>
+    <div *ngIf="!isSuccess" class="error">The words are not anagrams.</div>
+    </div>
+</div>
+

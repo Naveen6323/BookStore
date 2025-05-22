@@ -1,10 +1,25 @@
 
 <div class="header-row">
-    <h2>Books <span>({{count}} Items)</span></h2>
+    <h2>Books <span>({{totalItems}} Items)</span></h2>
     <select class="sort-select" (change)="onSortChange($event)">
     <option value="default">Sort by relevance</option>
     <option value="price">Sort by price</option>
+    <option value="desc">Sort by price descending</option>
     </select>
 </div>
 <app-displaybooks (countChange)="onCountChange($event)" (bookDetailChange)="onBookDetailReceived($event)" class="displaybooks" [search]="search"></app-displaybooks>
-  
+<div>
+
+   <div class="pagination ">
+  <button (click)="prevPage()" class="btn" [disabled]="currentPage === 1">&laquo;</button>
+
+  <div class="pages" *ngFor="let page of visiblePages">
+    <button (click)="goToPage(page)" class="btn" 
+            [class.active]="page === currentPage">
+      {{ page }}
+    </button>
+</div>
+
+  <button (click)="nextPage()" class="btn" [disabled]="currentPage === totalPages">&raquo;</button>
+</div>
+</div>

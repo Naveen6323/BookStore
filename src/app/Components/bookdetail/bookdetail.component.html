@@ -3,8 +3,18 @@
     <div class="book-section">
       <img src={{bookDetail.bookImage}} alt="Don't Make Me Think" class="book-cover">
       <div class="actions">
+        <div *ngIf="quantity==0; then showBlock else hideBlock"></div>
+        <ng-template #showBlock>
         <button class="btn add-to-bag" (click)="addCart(bookDetail.id)">ADD TO BAG</button>
-        <button class="btn wishlist" (click)="addTowhish(bookDetail.id)">❤ WISHLIST</button>
+        </ng-template>
+        <ng-template #hideBlock>
+          <div class="quantity-selector">
+            <button class="qty-btn" (click)="decrement(bookDetail.id)">−</button>
+            <div class="qty-display" id="qty-value">{{quantity}}</div>
+            <button class="qty-btn" (click)="addCart(bookDetail.id)">+</button>
+            </div>
+        </ng-template>
+        <button class="btn" [ngClass]="wished?' wishlist':'wished ' " (click)="addTowhish(bookDetail.id)">❤ WISHLIST</button>
       </div>
     </div>
 

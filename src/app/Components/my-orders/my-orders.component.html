@@ -1,0 +1,30 @@
+<div *ngIf="orderItems>0;then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+  <div class="breadcrumb">Home / <span>My Order</span></div>
+
+  <div class="order-card" *ngFor="let order of myOrders">
+    <div class="book-image">
+      <img src={{order.bookImage}} alt="Don't Make Me Think" />
+    </div>
+    <div class="book-details">
+      <h2>{{order.bookName}}</h2>
+      <p class="author">by Steve Krug</p>
+      <p class="price">
+        <span class="current-price">Rs. {{order.price}}</span>
+        <span class="original-price">Rs. 2500</span>
+      </p>
+    </div>
+
+        <div class="order-status">
+    
+          <span class="status-dot"></span>
+          <span>Order Placed on May 21</span>
+    </div>
+  </div>
+</ng-template>
+<ng-template #elseBlock>
+  <div class="empty">
+    <span class="material-symbols-outlined">shopping_bag</span>
+    <h3>No Orders Yet</h3>
+  </div>
+</ng-template>

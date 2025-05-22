@@ -8,6 +8,7 @@ import { WishService } from '../../Services/wishlist/wish.service';
   styleUrl: './whish-list.component.scss'
 })
 export class WhishListComponent implements OnInit {
+  wishItems: any;
   wishListDetail: any;
   wishCount: any ;
   constructor(private wish:WishService) { }
@@ -22,6 +23,7 @@ export class WhishListComponent implements OnInit {
       console.log(res.data);
       this.wishListDetail = res.data;
       this.wishCount = this.wishListDetail.length.toString().padStart(2, '0');
+      this.wishItems=this.wishListDetail.length;
     }, (error) => {
       // Handle HTTP error
       if (error.error && error.error.message) {

@@ -39,11 +39,62 @@ export class CarttService {
     }
     return this.http.putService(`https://localhost:7016/api/cart?bookId=${id}&quantity=1`, {}, true, header);
   }
+  getCUstomerDetails() {
+    let header= {
+      headers:new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.getService('https://localhost:7016/api/customer',true,header);
+  }
+  postCustomerDetails(reqData:any) {
+    let header= {
+      headers:new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.postService('https://localhost:7016/api/customer', reqData, true, header);
+  }
+  checkout() {
+    let header= {
+      headers:new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.putService('https://localhost:7016/api/cart/checkout', {}, true, header);
+  }
+  getMyOrders(){
+    let header= {
+      headers:new HttpHeaders({
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.getService('https://localhost:7016/api/cart/myOrders',true,header);
+  }
+  getBookById(id:any) {
+    let header= {
+      headers:new HttpHeaders({
 
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.getService(`https://localhost:7016/api/cart/getByBookId?bookId=${id}`,true,header);
+  }
+  deleteCart(bookId:any) {
+    let header= {
+      headers:new HttpHeaders({
 
-  // deleteCart(id:any) {
-  //   return this.http.deleteService(`https://localhost:7016/api/cart/${id}`, false);
-  // }
+        'Authorization': `Bearer ${this.token}`,
+        'Content-Type': 'application/json'
+      })
+    }
+    return this.http.deleteService(`https://localhost:7016/api/cart?bookId=${bookId}`,true,header);
+  }
 
   // updateCart(id:any, reqData:any) {
   //   return this.http.putService(`https://localhost:7016/api/cart/${id}`, reqData, false);

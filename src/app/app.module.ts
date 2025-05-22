@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './Components/auth/auth.component';
@@ -16,6 +15,12 @@ import { BookdetailComponent } from './Components/bookdetail/bookdetail.componen
 import {MatBadgeModule} from '@angular/material/badge';
 import { CartComponent } from './Components/cart/cart.component';
 import { WhishListComponent } from './Components/whish-list/whish-list.component';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatMenuModule} from '@angular/material/menu';
+import { MyOrdersComponent } from './Components/my-orders/my-orders.component';
+import { CheckoutComponent } from './Components/checkout/checkout.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { AnagramComponent } from './Components/anagram/anagram.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +31,10 @@ import { WhishListComponent } from './Components/whish-list/whish-list.component
     DisplaybooksComponent,
     BookdetailComponent,
     CartComponent,
-    WhishListComponent
+    WhishListComponent,
+    MyOrdersComponent,
+    CheckoutComponent,
+    AnagramComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +44,11 @@ import { WhishListComponent } from './Components/whish-list/whish-list.component
     HttpClientModule,
     MatSnackBarModule,
     FormsModule,
-    MatBadgeModule
-  ],
+    MatBadgeModule,
+    MatProgressBarModule,
+    MatMenuModule,
+    MatPaginatorModule
+    ],
   providers: [
     provideClientHydration(withEventReplay())
   ],

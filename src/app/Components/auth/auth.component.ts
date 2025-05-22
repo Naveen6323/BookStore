@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './auth.component.scss'
 })
 export class AuthComponent implements OnInit {
+  loading = false;
   isLoginMode = true;
   constructor(private formBuilder:FormBuilder,private user:UserService,private snackBar:MatSnackBar,private route:Router) { }
   loginForm!: FormGroup;
@@ -37,20 +38,23 @@ ngOnInit(): void {
        email : this.loginForm.value.email,
        password : this.loginForm.value.password
       }
+      this.loading = true;
+
       this.user.login(reqData).subscribe((res:any) => {
           // Handle successful login
           console.log('Login successful!');
           console.log(res.data.accessToken);
           // Store the token in local storage or session storage
           localStorage.setItem('token', res.data.accessToken);
-          this.route.navigate(['/dash']);
+          this.route.navigate(['/dashboard']);
         }, (error) => {
+        this.loading = false;
         // Handle HTTP error
         if (error.status === 400 && error.error && error.error.message) {
           this.snackBar.open(error.error.message, 'close', {
-            duration: 3000
-          });        
+            duration: 3000});        
         } else {
+          this.loading = false;
           this.snackBar.open('unexcepted error', 'close', {
             duration: 3000
           });

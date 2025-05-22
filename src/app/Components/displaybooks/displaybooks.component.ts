@@ -29,15 +29,24 @@ export class DisplaybooksComponent implements OnInit,OnChanges {
 }
   ngOnInit(): void {
     this.getAllBooks();
+    this.getAllBooksByPageNumber(1);
   }
   getAllBooks() {
     this.book.getAllBooks().subscribe((res:any) => {
       console.log(res);
+      this.count = res.data.length;
+      this.updateCount();
+    }, (error) => {
+      // Handle HTTP error
+      console.error('Error fetching books:', error);
+    });
+  }
+  getAllBooksByPageNumber(pageNumber:number) {
+    this.book.getAllBooksByPageNumber(pageNumber).subscribe((res:any) => {
+      console.log(res);
       this.books = res.data;
       this.filteredBooks=[...res.data];
       this.originalBooks = [...res.data];
-      this.count = this.books.length;
-      this.updateCount(); // Emit the count after fetching books
     }, (error) => {
       // Handle HTTP error
       console.error('Error fetching books:', error);
@@ -46,7 +55,9 @@ export class DisplaybooksComponent implements OnInit,OnChanges {
   sortBooks(value:any) {
     if (value.target.value === 'price') {
       this.filteredBooks=this.books.sort((a: any, b: any) => a.discountPrice - b.discountPrice);
-    console.log("sorted");
+    }else if(value.target.value==='desc'){
+      this.filteredBooks=this.books.sort((a: any, b: any) => b.discountPrice - a.discountPrice);
+
     } else {
       this.filteredBooks=this.originalBooks;
     }

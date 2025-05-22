@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   cartDetail: any;
   searchValue: string = '';
   bookDetailData:any=null;
-  constructor(private cartService:CarttService){}
+  constructor(private cartService:CarttService,private router:Router){}
   ngOnInit(): void {
     this.getCartDetail();
   }
@@ -30,20 +30,25 @@ export class DashboardComponent implements OnInit {
   onBookDetailReceive(book: any) {
     this.bookDetailData = book;
     this.activeComponent = 'bookDetail';
+    this.router.navigate(['dashboard/detail']);
     
   }
   toDashBoard(value: string) {
     this.activeComponent = value;
+    this.router.navigate(['dashboard']);
   }
   onCartClick(string:any) {
     
     this.activeComponent = string;
-    //   if (this.cart) {
-    //     this.cartDetail=this.cart.getCartDetail();
-    // }
+    this.router.navigate(['dashboard/cart']);
 }
 onWishClick(string:any) {
   this.activeComponent = string;
+  this.router.navigate(['dashboard/wishlist']);
+}
+onMyOrders(string:any) {
+  this.activeComponent = string;
+  this.router.navigate(['dashboard/myorders']);
 }
 receiveCartCount(count: number) {
   this.cartCount = count;
@@ -51,6 +56,9 @@ receiveCartCount(count: number) {
 }
 cartCountRefresh(res:any) {
   this.ngOnInit();
-  console.log('Cart count refreshed:', this.cartCount); // Debugging line
+}
+logout() {  
+  localStorage.removeItem('token');
+  this.router.navigate(['']);
 }
 }
